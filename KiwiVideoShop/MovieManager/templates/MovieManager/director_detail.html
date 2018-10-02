@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Title: {{ director.first_name }} {{ director.last_name }}</h1>
+
+  <p><strong>First Name:</strong> {{ director.first_name }}</p>
+  <p><strong>Last Name:</strong> {{ director.last_name }}</p>   
+  <p><strong>Date Of Birth:</strong> {{ director.date_of_birth }}</p>
+  <p><strong>Date Of Death:</strong> {{ director.date_of_death }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Movies</h4>
+
+    {% for movie in director.movie_set.all %}
+      <hr>
+      <p><strong>Title:</strong> {{movie.title}}</p>
+      <p><strong>Summary:</strong> {{movie.summary}}</p>
+      <p><strong>Genre:</strong> {{movie.genre}}</p>
+      <p><strong>Year:</strong> {{movie.year}}</p>
+    {% endfor %}
+  </div>
+{% endblock %}
