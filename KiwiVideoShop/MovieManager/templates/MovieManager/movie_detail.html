@@ -7,7 +7,7 @@
     <a href="{% url 'director-detail' movie.director.pk %}">
       {{ movie.director }}
     </a>
-  </p> <!-- author detail link not yet defined -->
+  </p>
   <p><strong>Summary:</strong> {{ movie.summary }}</p>
   <p><strong>Year:</strong> {{ movie.year }}</p>   
   <p><strong>Genre:</strong> {% for genre in movie.genre.all %}
