@@ -2,6 +2,7 @@ import datetime
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.forms import ModelForm, CharField, TextInput
 
 class RenewMovieForm(forms.Form):
     renewal_date = forms.DateField(help_text="Enter a date between now and 4 weeks (default 3).")
@@ -18,4 +19,14 @@ class RenewMovieForm(forms.Form):
             raise ValidationError(_('Invalid date - renewal more than 4 weeks ahead'))
 
         # Remember to always return the cleaned data.
+        return data
+
+class UpdateMovieForm(forms.Form):
+    status = forms.ChoiceField(choices = (('m', 'Maintenance'),
+                                          ('o', 'On loan'),
+                                          ('a', 'Available'),
+                                          ('r', 'Reserved'),))
+
+    def data_collection(self):
+        data = self.collected_data['status']
         return data

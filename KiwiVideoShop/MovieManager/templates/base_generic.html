@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  {% block title %}{% endblock %}
+  <title>Kiwi Video Shop</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -12,59 +12,71 @@
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="row">
+  <header>
+    <a href="{% url 'index' %}"><img class="logo"src="{% static 'MovieManager/logo.png' %}"></a>
+    <h1 class="site_name">Kiwi Video Shop</h1>
+  </header>
+  <div class="row content_and_nav_block">
 
-      <div class="col-sm-2">
-        {% block sidebar %}
-          <ul class="sidebar-nav">
-            <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'movies' %}">All Movies</a></li>
-            <li><a href="{% url 'directors' %}">All Directors</a></li>
+    <div class="col-sm-3 nav">
+      {% block sidebar %}
+        <ul class="sidebar-nav">
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'movies' %}">All Movies</a></li>
+          <li><a href="{% url 'directors' %}">All Directors</a></li>
 
-           {% if user.is_authenticated %}
-             <li>User: {{ user.get_username }}</li>
-             <li><a href="{% url 'my-rented' %}">My Rented</a></li>
-             <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+         {% if user.is_authenticated %}
+           <li>User: {{ user.get_username }}</li>
+           <li><a href="{% url 'my-rented' %}">My Rented</a></li>
+           <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
 
-             <hr>
-             {% if perms.MovieManager.can_mark_returned %}
-             <li>User Group: Staff</li>
-             <li><a href="{% url 'all-rented-movies' %}">All Rented Movies</a></li>
-             {% endif %}   
-             
-           {% else %}
-             <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
-           {% endif %}
-          </ul>
-        {% endblock %}
-      </div>
-
-      <div class="col-sm-10 ">
-        {% block content %}
-        {% endblock %}
-
-        {% block pagination %}
-          {% if is_paginated %}
-            <div class="pagination">
-              <span class="page-links">
-                {% if page_obj.has_previous %}
-                  <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-                <span class="page-current">
-                  <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</p>
-                </span>
-                {% if page_obj.has_next %}
-                  <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-                {% endif %}
-              </span>
-            </div>
-          {% endif %}
-        {% endblock %} 
-      </div>
-
+           <hr>
+           {% if perms.MovieManager.can_mark_returned %}
+           <li>User Group: Staff</li>
+           <li><a href="{% url 'all-rented-movies' %}">All Rented Movies</a></li>
+           {% endif %}   
+           
+         {% else %}
+           <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+         {% endif %}
+        </ul>
+      {% endblock %}
     </div>
+
+    <div class="col-sm-9 content">
+      {% block content %}
+      {% endblock %}
+
+      {% block pagination %}
+        {% if is_paginated %}
+          <div class="pagination">
+            <span class="page-links">
+              {% if page_obj.has_previous %}
+                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+              {% endif %}
+              <span class="page-current">
+                <p>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</p>
+              </span>
+              {% if page_obj.has_next %}
+                <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+              {% endif %}
+            </span>
+          </div>
+        {% endif %}
+      {% endblock %} 
+    </div>
+
   </div>
+  <footer>
+    <p id="copyright">
+      Copyright: Secure Web App Team Sep 2018.
+    <p>
+    <ul>
+      <li><a href="https://www.facebook.com/" target="_blank"><img src="{% static 'MovieManager/facebook.png' %}"></a></li>
+      <li><a href="https://twitter.com/" target="_blank"><img src="{% static 'MovieManager/twitter.png' %}"></a></li>
+      <li><a href="https://plus.google.com/collections/featured" target="_blank"><img src="{% static 'MovieManager/google+.png' %}"></a></li>
+    </ul>
+  </footer>
 </body>
 
 </html>

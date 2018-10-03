@@ -1,19 +1,15 @@
 {% extends "base_generic.html" %}
 
-{% block title %}<title>Kiwi Video Shop</title>{% endblock %}
-
 {% block content %}
-  <h1>Kiwi Video Shop</h1>
-  <p>Welcome to Kiwi Video Shop!</p>
-  <h2>Dynamic content</h2>
-  <p>Record Movie Counts:</p>
+  <h2>Welcome to Kiwi Video Shop!</h2>
+  <h2>Recorded Movie Counts</h2>
   <ul>
     <li><strong>Movies:</strong> {{ num_movies }}</li>
     <li><strong>Copies:</strong> {{ num_instances }}</li>
     <li><strong>Copies Available:</strong> {{ num_instances_available }}</li>
     <li><strong>Directors:</strong> {{ num_directors }}</li>
   </ul>
-  <p>You have visited this page {{ num_visits }}
+  <p class="visits">You have visited this page {{ num_visits }}
       {% if num_visits == 1 %}
        time
       {% else %}

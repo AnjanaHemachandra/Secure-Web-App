@@ -15,8 +15,7 @@
                                 {% if not forloop.last %},
                                 {% endif %}
                               {% endfor %}</p>  
-
-  <div style="margin-left:20px;margin-top:20px">
+  <div>
     <h4>Copies</h4>
     {% for copy in movie.movieinstance_set.all %}
       <hr>

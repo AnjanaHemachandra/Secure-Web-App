@@ -21,3 +21,7 @@ urlpatterns += [
 urlpatterns += [   
     path('movie/<uuid:pk>/renew/', views.renew_movie_shop_staff, name='renew-movie-shop-staff'),
 ]
+
+urlpatterns += [   
+    path('movie/<uuid:pk>/update/', views.update_movie_shop_staff, name='update-movie-shop-staff'),
+]

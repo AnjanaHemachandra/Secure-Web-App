@@ -10,7 +10,8 @@
         <a href="{% url 'movie-detail' movieinst.movie.pk %}">{{movieinst.movie.title}}</a>
         ({{ movieinst.due_back }})
         {% if perms.MovieManager.can_mark_returned %}
-          - <a href="{% url 'renew-movie-shop-staff' movieinst.pk %}">Renew Rented Movie</a>
+          - <a href="{% url 'renew-movie-shop-staff' movieinst.pk %}">Renew Rented Movie </a>
+          - <a href="{% url 'update-movie-shop-staff' movieinst.pk %}">Update Status</a>
         {% endif %}       
       </li>
       {% endfor %}

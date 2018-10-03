@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from MovieManager.forms import RenewMovieForm
+from MovieManager.forms import UpdateMovieForm
 
 """View function for home page of site."""
 def index(request):
@@ -95,3 +96,28 @@ def renew_movie_shop_staff(request, pk):
     }
 
     return render(request, 'MovieManager/movie_renew_shop_staff.html', context)
+
+
+@permission_required('MovieManager.can_mark_returned')
+def update_movie_shop_staff(request, pk):
+    """View function for renewing a specific MovieInstance by shop staff member."""
+    movie_instance = get_object_or_404(MovieInstance, pk=pk)
+
+    if request.method == 'POST':
+        movie_update_form = UpdateMovieForm(request.POST)
+
+        if movie_update_form.is_valid():
+            movie_instance.status = movie_update_form.data['status']
+            movie_instance.save()
+            return HttpResponseRedirect(reverse('all-rented-movies') )
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+        movie_update_form = UpdateMovieForm(initial={'status': "m"})
+
+    context = {
+        'form': movie_update_form,
+        'movie_instance': movie_instance,
+    }
+
+    return render(request, 'MovieManager/movie_update_shop_staff.html', context)
